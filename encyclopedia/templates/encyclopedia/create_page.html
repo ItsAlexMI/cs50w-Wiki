@@ -1,0 +1,16 @@
+{%extends "encyclopedia/layout.html"%}
+
+{% block title %}
+    Create New Page
+{% endblock %}
+
+{% block body %}
+    <form action="{% url 'create_page' %}" class="mt-4 ml-5" method="POST">
+        {% csrf_token %}
+        <h1>Title</h1> <input class="form-control mb-5 w-50" type="text" name="title" required>
+        <h1>Content</h1> <textarea class="form-control mb-5 w-50" name="content" required></textarea>
+        <input type="submit" class="btn btn-primary" value="Create">
+    </form>
+
+    <a class="btn btn-danger mt-5 ml-5" href="{% url 'index' %}">Regresar a la lista de entradas</a>
+{% endblock %}

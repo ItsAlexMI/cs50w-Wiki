@@ -1,0 +1,45 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="entry-content">
+        <h1 class="mt-4 ml-5">{{ title|safe }} </h1>
+        <p class="mt-4 ml-5">{{ content|safe }} </p>
+    </div>
+    <a class="btn btn-primary mt-5 ml-5" href="{% url 'index' %}">Regresar a la lista de entradas</a>
+
+    <button class="btn btn-warning mt-5 ml-5" id="editButton" style="color: white;">Edit Entry</button>
+
+    <form action="{%url 'eliminate_entry' title=title %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger mt-5 ml-5" value="Delete Entry">
+    </form>
+
+    <div class="edit-content mt-5 ml-5" id="editForm" style="display: none;">
+        <form action="{% url 'edit_entry' title=title %}" method="POST">
+            {% csrf_token %}
+            <textarea class="form-control mb-5 w-50" name="content" required>{{ content }}</textarea>
+            <input type="submit" class="btn btn-primary" value="Save">
+        </form>
+    </div>
+
+    
+</div>
+
+
+    <script>
+        document.getElementById("editButton").addEventListener("click", function() {
+            var editForm = document.getElementById("editForm");
+            if (editForm.style.display === "none" || editForm.style.display === "") {
+                editForm.style.display = "block";
+            } else {
+                editForm.style.display = "none";
+            }
+        });
+    </script>
+    <a href="{% url 'index' %}" class="btn btn-danger mt-5 ml-5">Regresar a la lista de entradas</a>
+{% endblock %}

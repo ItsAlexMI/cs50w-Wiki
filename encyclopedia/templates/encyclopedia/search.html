@@ -1,0 +1,29 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-md-9">
+            <div class="p-3">
+                <h1 class="mb-4">Search</h1>
+                <!-- valida que si no hay contenido se muestre un mensaje de error -->
+
+                {% if not recommendation %}
+                    <h2 class="mt-4 ml-5" style="color: red;">No se encontraron resultados</h2>
+                {% endif %}
+                <ul class="list-group">
+                    {% for entry in recommendation %}
+                        <li class="list-group-item"><a href="{% url 'entry' title=entry %}">{{ entry }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
